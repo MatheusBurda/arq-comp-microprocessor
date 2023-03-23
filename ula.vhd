@@ -18,13 +18,34 @@ architecture a_ula of ula is
         );
     end component;
 
-    signal op: unsigned(1 downto 0);
-    signal in0, in1, output: unsigned(15 downto 0);
+    signal mux0, mux1, mux2, mux3: unsigned(15 downto 0);
+    signal op_mux: unsigned(1 downto 0);
     
-    uut: porta port map( in_a => in_a,
-    in_b => in_b,
-    a_e_b => a_e_b);
+    mux: mux4x1_16 port map (
+        op_mux => op,
+        mux0 => in0,
+        mux1 => in1,
+        mux2 => in2,
+        mux3 => in3,
+        output => output
+    );
 
+--   operation   op
+
+--   in0 + in1   00
+--   in0 - in1   01
+--   in0 & in1   10 ????
+--   in0 > in1   11
+
+begin
+    process
     begin
+        mux0 <= in0 + in1;
+        mux1 <= in0 - in1;
+        mux2 <= in0 & in1;
+
+        
+        mux3 <= in0 > in1;
+    end process;
 
 end architecture;
