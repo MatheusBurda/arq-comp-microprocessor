@@ -4,9 +4,9 @@ use ieee.numeric_std.all;
 
 entity mux4x1_16 is
     port(   
-        op              : in std_logic_vector(1 downto 0);
-        in0,in1,in2,in3 : in std_logic_vector(15 downto 0);
-        output          : out std_logic_vector(15 downto 0)
+        op              : in unsigned(1 downto 0);
+        in0,in1,in2,in3 : in unsigned(15 downto 0);
+        output          : out unsigned(15 downto 0)
     );
 end entity;
 
