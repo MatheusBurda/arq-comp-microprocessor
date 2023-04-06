@@ -11,7 +11,7 @@ entity ula is
 end entity;
 
 architecture a_ula of ula is
-    component mux4x1_16 is
+    component mux4x1 is
         port(
             op              : in unsigned(1 downto 0);
             in0,in1,in2,in3 : in unsigned(15 downto 0);
@@ -22,12 +22,12 @@ architecture a_ula of ula is
     signal mux_add, mux_sub, mux_ge, mux_dif: unsigned(15 downto 0);
     signal op_mux: unsigned(1 downto 0);
 
-    constant ZERO_16: unsigned(15 downto 0) := "0000000000000000";
-    constant ONE_16: unsigned(15 downto 0) := "0000000000000001";
+    constant ZERO: unsigned(15 downto 0) := "0000000000000000";
+    constant ONE: unsigned(15 downto 0) := "0000000000000001";
     
 begin
 
-    mux: mux4x1_16 port map (
+    mux: mux4x1 port map (
         op => op,
         in0 => mux_add,
         in1 => mux_sub,
@@ -47,8 +47,8 @@ begin
 
     mux_sub <= in0 - in1;
     
-    mux_ge <= ONE_16 when (in0 >= in1) else ZERO_16;
+    mux_ge <= ONE when (in0 >= in1) else ZERO;
     
-    mux_dif <= ONE_16 when (in0 /= in1) else ZERO_16;
+    mux_dif <= ONE when (in0 /= in1) else ZERO;
 
 end architecture;
