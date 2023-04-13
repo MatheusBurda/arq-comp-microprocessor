@@ -2,12 +2,12 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity mux4x1_16_tb is
+entity mux4x1_tb is
 end entity;
 
-architecture a_mux4x1_16_tb of mux4x1_16_tb is
+architecture a_mux4x1_tb of mux4x1_tb is
 
-    component mux4x1_16
+    component mux4x1
         port(
             op              : in unsigned(1 downto 0);
             in0,in1,in2,in3 : in unsigned(15 downto 0);
@@ -20,7 +20,7 @@ architecture a_mux4x1_16_tb of mux4x1_16_tb is
     
 begin
         
-    uut: mux4x1_16 port map(
+    uut: mux4x1 port map(
         op => op,
         in0 => in0,
         in1 => in1,
