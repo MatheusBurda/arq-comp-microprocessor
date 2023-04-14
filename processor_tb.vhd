@@ -89,7 +89,7 @@ begin
 
 
 
-        ---------- add $reg2,$reg0,0x00FF  ------------
+        ---------- addi $reg2,$reg0,0x00FF  ------------
 
 
         address_read_1 <= "010"; -- reads from reg_2 that is zero AT THE MOMENT
