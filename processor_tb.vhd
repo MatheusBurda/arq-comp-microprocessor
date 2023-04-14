@@ -8,15 +8,16 @@ end entity;
 architecture a_processor of processor_tb is
     component processor is
         port (
-            rst, clk, wr_en: in std_logic;
+            rst, clk, wr_en, ula_src_mux_op: in std_logic;
             address_read_0, address_read_1, address_write: in unsigned(2 downto 0);
             op: in unsigned(1 downto 0);
             data_in: in unsigned(15 downto 0);
             data_out: out unsigned(15 downto 0)
         );
+        
     end component;
 
-    signal rst, clk, wr_en, finished: std_logic;
+    signal rst, clk, wr_en, ula_src_mux_op, finished: std_logic;
     signal address_read_0, address_read_1, address_write: unsigned(2 downto 0);
     signal op: unsigned(1 downto 0);
     signal data_in: unsigned(15 downto 0);
@@ -33,7 +34,8 @@ begin
         address_write => address_write,
         op => op,
         data_in => data_in,
-        data_out => data_out
+        data_out => data_out,
+        ula_src_mux_op => ula_src_mux_op
     );
 
     rst_global: process
@@ -66,20 +68,49 @@ begin
 
     process
     begin
-        wait for 200 ns;
         wr_en <= '1';
-        address_read_0 <= "001";
-        address_read_1 <= "010";
-        
-        address_write <= "001"; -- write on reg_1
-        data_in <= "0000000011111111";
 
         wait for 100 ns;
-        address_write <= "010"; -- write on reg_2
+
+
+        ---------- addi $reg1,$reg0,0xFF00  ------------
+
+        op <= "00"; -- sum operation
+        address_read_0 <= "000"; -- reads from reg_0 that is always zero
+        address_read_1 <= "001"; -- reads from reg_1 that is zero AT THE MOMENT
+
+        -- IMPORTANT: During this test the ULA SRC MUX is set to 1, so it will get from data-in
+        ula_src_mux_op <= '1';
+
         data_in <= "1111111100000000";
-        op <= "00"; -- sum
-        wait for 50 ns;
-        wr_en <= '0';
+        address_write <= "001"; -- sets the value of data_in to reg_1
+
+        wait for 100 ns;
+
+
+
+        ---------- add $reg2,$reg0,0x00FF  ------------
+
+
+        address_read_1 <= "010"; -- reads from reg_2 that is zero AT THE MOMENT
+        data_in <= "0000000011111111";
+        address_write <= "010"; -- sets the value of data_in to reg_2
+
+        wait for 100 ns;
+        
+
+        ---------- add $reg3,$reg1,$reg2  ------------
+
+
+        -- sum reg_1 with reg_2 together
+        address_read_0 <= "001";
+        address_read_1 <= "010";
+
+        ula_src_mux_op <= '0'; -- gets data from the second out of the reg bank
+        address_write <= "011"; -- sets the value of the sum of
+
+
+        wait for 100 ns;
         wait;
     end process;
 

@@ -5,7 +5,7 @@ ghdl -a ula.vhd
 ghdl -a reg.vhd
 ghdl -a reg_bank.vhd
 ghdl -a processor.vhd
-ghdl -a reg_bank_tb.vhd
+ghdl -a processor_tb.vhd
 
-ghdl -r reg_bank_tb --wave=compiled/reg_bank_tb.ghw
-gtkwave compiled/reg_bank_tb.ghw 
+ghdl -r processor_tb --wave=compiled/processor_tb.ghw
+gtkwave compiled/processor_tb.ghw 
