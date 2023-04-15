@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ghdl -a mux4x1.vhd
+ghdl -a mux2x1.vhd
 ghdl -a ula.vhd
 ghdl -a reg.vhd
 ghdl -a reg_bank.vhd
