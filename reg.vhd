@@ -15,8 +15,6 @@ end entity;
 architecture a_reg of reg is
     signal registry: unsigned(15 downto 0);
 begin
-    uut: 
-
     process(clk,rst,wr_en)
     begin
         if rst='1' then
