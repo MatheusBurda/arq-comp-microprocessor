@@ -5,8 +5,9 @@ ghdl -a mux2x1.vhd
 ghdl -a ula.vhd
 ghdl -a reg.vhd
 ghdl -a reg_bank.vhd
+ghdl -a pc.vhd
 ghdl -a processor.vhd
-ghdl -a processor_tb.vhd
+ghdl -a pc_tb.vhd
 
-ghdl -r processor_tb --wave=compiled/processor_tb.ghw
-gtkwave compiled/processor_tb.ghw 
+ghdl -r pc_tb --wave=compiled/pc_tb.ghw
+gtkwave compiled/pc_tb.ghw 
