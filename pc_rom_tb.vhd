@@ -2,35 +2,34 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity pc_tb is
+entity pc_rom_tb is
 end entity;
 
-architecture a_pc_tb of pc_tb is
-    component pc
-        port(
-            clk:       in std_logic;
-            rst:       in std_logic;
-            wr_en:     in std_logic;
-            data_out:  out unsigned(15 downto 0)
+architecture a_pc_rom_tb of pc_rom_tb is
+    component processor is
+        port (
+            rst, clk: in std_logic;
+            rom_out: out unsigned(13 downto 0);
+            pc_out: out unsigned(6 downto 0)
         );
     end component;
 
-    signal clk, rst, wr_en, finished: std_logic := '0';
-    signal data_in, data_out: unsigned(15 downto 0);
+    signal clk, rst, finished: std_logic := '0';
+    signal rom_out: unsigned(13 downto 0);
+    signal pc_out: unsigned(6 downto 0);
     
     constant period_time : time := 1 ns;
 begin
-    uut: pc port map(
-        clk => clk,
+    uut: processor port map(
         rst => rst,
-        wr_en => wr_en,
-        data_out => data_out
+        clk => clk,
+        rom_out => rom_out,
+        pc_out => pc_out
     );
 
     -- Must reset and continue counting
     rst_global: process
     begin
-        wr_en <= '1';
         rst <= '1';
         wait for period_time * 2;
         rst <= '0';
@@ -63,4 +62,4 @@ begin
         wait;
     end process clk_proc;
 
-end architecture a_pc_tb;
+end architecture a_pc_rom_tb;

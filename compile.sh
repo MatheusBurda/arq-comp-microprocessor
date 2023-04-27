@@ -6,8 +6,8 @@ ghdl -a ula.vhd
 ghdl -a reg.vhd
 ghdl -a reg_bank.vhd
 ghdl -a pc.vhd
-ghdl -a processor.vhd
 ghdl -a pc_tb.vhd
+# ghdl -a processor.vhd
 
 ghdl -r pc_tb --wave=compiled/pc_tb.ghw
 gtkwave compiled/pc_tb.ghw 
