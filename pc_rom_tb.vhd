@@ -8,15 +8,23 @@ end entity;
 architecture a_pc_rom_tb of pc_rom_tb is
     component processor is
         port (
-            rst, clk: in std_logic;
+            rst, clk, wr_en, ula_src_mux_op: in std_logic;
+            address_read_0, address_read_1, address_write: in unsigned(2 downto 0);
+            op: in unsigned(1 downto 0);
+            data_in: in unsigned(15 downto 0);
+            data_out: out unsigned(15 downto 0);
             rom_out: out unsigned(13 downto 0);
             pc_out: out unsigned(6 downto 0)
         );
     end component;
 
-    signal clk, rst, finished: std_logic := '0';
     signal rom_out: unsigned(13 downto 0);
     signal pc_out: unsigned(6 downto 0);
+    signal rst, clk, wr_en, ula_src_mux_op, finished: std_logic;
+    signal address_read_0, address_read_1, address_write: unsigned(2 downto 0);
+    signal op: unsigned(1 downto 0);
+    signal data_in: unsigned(15 downto 0);
+    signal data_out: unsigned(15 downto 0);
     
     constant period_time : time := 1 ns;
 begin
@@ -24,7 +32,15 @@ begin
         rst => rst,
         clk => clk,
         rom_out => rom_out,
-        pc_out => pc_out
+        pc_out => pc_out,
+        wr_en => wr_en,
+        address_read_0 => address_read_0,
+        address_read_1 => address_read_1,
+        address_write => address_write,
+        op => op,
+        data_in => data_in,
+        data_out => data_out,
+        ula_src_mux_op => ula_src_mux_op
     );
 
     -- Must reset and continue counting

@@ -21,7 +21,7 @@ architecture a_processor of processor is
             clk:       in std_logic;
             rst:       in std_logic;
             wr_en:     in std_logic;
-            data_in:  out unsigned(6 downto 0);
+            data_in:   in unsigned(6 downto 0);
             data_out:  out unsigned(6 downto 0)
         );
     end component;
@@ -68,21 +68,22 @@ architecture a_processor of processor is
     signal pc_out_sig, pc_data_in: unsigned(6 downto 0);
     signal pc_wr_en: std_logic;
 begin
-    pc_pm: pc port map(
-        clk => clk,
-        rst => rst,
-        wr_en => '1',
-        data_in => pc_data_in,
-        data_out => pc_out_sig
-    );
-
-    pc_data_in <= pc_out_sig + "0000001";
-
     rom_pm: rom port map(
         clk => clk,
         address => pc_out_sig,
         data => rom_out
     );
+
+    pc_pm: pc port map(
+        clk => clk,
+        rst => rst,
+        wr_en => pc_wr_en,
+        data_in => pc_data_in,
+        data_out => pc_out_sig
+    );
+
+    pc_wr_en <= '1';
+    pc_data_in <= pc_out_sig + "0000001";
     pc_out <= pc_out_sig;
 
     reg_bank_pm: reg_bank port map(
