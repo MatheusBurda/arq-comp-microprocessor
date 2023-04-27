@@ -14,6 +14,16 @@ end entity;
 
 
 architecture a_processor of processor is
+    component pc is
+        port(
+            clk:       in std_logic;
+            rst:       in std_logic;
+            wr_en:     in std_logic;
+            data_in:   in unsigned(15 downto 0);
+            data_out:  out unsigned(15 downto 0)
+        );
+    end component;
+    
     component ula is
         port(
             op      : in unsigned(1 downto 0);
@@ -45,6 +55,7 @@ architecture a_processor of processor is
     end component;
     
     signal reg_bank_out_0, ula_out, ula_src_mux_in, ula_src_mux_out: unsigned(15 downto 0);
+    signal pc_wr_en: std_logic;
 begin
     reg_bank_pm: reg_bank port map(
         clk => clk,
