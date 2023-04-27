@@ -1,0 +1,28 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Thu Mar 23 20:13:26 2023
+[*]
+[dumpfile] "/mnt/Shared/UTFPR/6/arq-comp/processador/compiled/ula_tb.ghw"
+[dumpfile_mtime] "Thu Mar 23 20:11:00 2023"
+[dumpfile_size] 1201
+[savefile] "/mnt/Shared/UTFPR/6/arq-comp/processador/compiled/ulagtkw.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-26.000000 134200000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.ula_tb.
+[sst_width] 215
+[signals_width] 126
+[sst_expanded] 1
+[sst_vpaned_height] 148
+@23
+#{top.ula_tb.in0[15:0]} top.ula_tb.in0[15] top.ula_tb.in0[14] top.ula_tb.in0[13] top.ula_tb.in0[12] top.ula_tb.in0[11] top.ula_tb.in0[10] top.ula_tb.in0[9] top.ula_tb.in0[8] top.ula_tb.in0[7] top.ula_tb.in0[6] top.ula_tb.in0[5] top.ula_tb.in0[4] top.ula_tb.in0[3] top.ula_tb.in0[2] top.ula_tb.in0[1] top.ula_tb.in0[0]
+@22
+#{top.ula_tb.in1[15:0]} top.ula_tb.in1[15] top.ula_tb.in1[14] top.ula_tb.in1[13] top.ula_tb.in1[12] top.ula_tb.in1[11] top.ula_tb.in1[10] top.ula_tb.in1[9] top.ula_tb.in1[8] top.ula_tb.in1[7] top.ula_tb.in1[6] top.ula_tb.in1[5] top.ula_tb.in1[4] top.ula_tb.in1[3] top.ula_tb.in1[2] top.ula_tb.in1[1] top.ula_tb.in1[0]
+@28
+#{top.ula_tb.op[1:0]} top.ula_tb.op[1] top.ula_tb.op[0]
+@22
+#{top.ula_tb.output[15:0]} top.ula_tb.output[15] top.ula_tb.output[14] top.ula_tb.output[13] top.ula_tb.output[12] top.ula_tb.output[11] top.ula_tb.output[10] top.ula_tb.output[9] top.ula_tb.output[8] top.ula_tb.output[7] top.ula_tb.output[6] top.ula_tb.output[5] top.ula_tb.output[4] top.ula_tb.output[3] top.ula_tb.output[2] top.ula_tb.output[1] top.ula_tb.output[0]
+[pattern_trace] 1
+[pattern_trace] 0
