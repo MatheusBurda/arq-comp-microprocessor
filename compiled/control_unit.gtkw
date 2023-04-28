@@ -1,0 +1,27 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Fri Apr 28 13:56:33 2023
+[*]
+[dumpfile] "/mnt/Shared/UTFPR/6/arq-comp/processador/compiled/control_unit_tb.ghw"
+[dumpfile_mtime] "Fri Apr 28 13:54:39 2023"
+[dumpfile_size] 3214
+[savefile] "/mnt/Shared/UTFPR/6/arq-comp/processador/gtk_settings/control_unit.gtkw"
+[timestart] 0
+[size] 1366 708
+[pos] -35 -35
+*-25.000000 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.control_unit_tb.
+[sst_width] 215
+[signals_width] 134
+[sst_expanded] 1
+[sst_vpaned_height] 233
+@28
+top.control_unit_tb.clk
+top.control_unit_tb.rst
+@24
+#{top.control_unit_tb.pc_out[6:0]} top.control_unit_tb.pc_out[6] top.control_unit_tb.pc_out[5] top.control_unit_tb.pc_out[4] top.control_unit_tb.pc_out[3] top.control_unit_tb.pc_out[2] top.control_unit_tb.pc_out[1] top.control_unit_tb.pc_out[0]
+@28
+#{top.control_unit_tb.rom_out[13:0]} top.control_unit_tb.rom_out[13] top.control_unit_tb.rom_out[12] top.control_unit_tb.rom_out[11] top.control_unit_tb.rom_out[10] top.control_unit_tb.rom_out[9] top.control_unit_tb.rom_out[8] top.control_unit_tb.rom_out[7] top.control_unit_tb.rom_out[6] top.control_unit_tb.rom_out[5] top.control_unit_tb.rom_out[4] top.control_unit_tb.rom_out[3] top.control_unit_tb.rom_out[2] top.control_unit_tb.rom_out[1] top.control_unit_tb.rom_out[0]
+[pattern_trace] 1
+[pattern_trace] 0
