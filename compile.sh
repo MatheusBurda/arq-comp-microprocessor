@@ -8,6 +8,7 @@ ghdl -a reg_bank.vhd
 ghdl -a pc.vhd
 ghdl -a rom.vhd
 ghdl -a processor.vhd
+ghdl -a state_machine.vhd
 ghdl -a control_unit.vhd
 ghdl -a control_unit_tb.vhd
 
