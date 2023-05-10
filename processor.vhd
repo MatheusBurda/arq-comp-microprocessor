@@ -4,9 +4,7 @@ use ieee.numeric_std.all;
 
 entity processor is
     port (
-        rst, clk, wr_en, ula_src_mux_op: in std_logic;
-        address_read_0, address_read_1, address_write: in unsigned(2 downto 0);
-        op: in unsigned(1 downto 0);
+        rst, clk: in std_logic;
         data_in: in unsigned(15 downto 0);
         data_out: out unsigned(15 downto 0)
     );
@@ -75,13 +73,24 @@ architecture a_processor of processor is
     signal reg_bank_out_0, ula_out, ula_src_mux_in, ula_src_mux_out: unsigned(15 downto 0);
     signal rom_data: unsigned(13 downto 0);
     signal pc_out_sig, pc_data_in, jump_address: unsigned(6 downto 0);
-    signal alu_src, reg_write, pc_wr_en, jump_en: std_logic;
+    signal opcode: unsigned(3 downto 0);
+    signal address_read_0, address_read_1, address_write: unsigned(2 downto 0);
     signal alu_op: unsigned(1 downto 0);
+    signal alu_src, reg_write, pc_wr_en, jump_en: std_logic;
+
 begin
+    opcode <= rom_data(13 downto 10);
+
+    address_read_0 <= rom_data(5 downto 3) when opcode = "0011" or opcode = "0100" else
+                      "000" when opcode = "0001" else "000";
+
+    address_read_1 <= rom_data(2 downto 0) when opcode = "0011" or opcode = "0100";
+    address_write <= rom_data(5 downto 3) when opcode = "0011" or opcode = "0100" else rom_data(9 downto 7);
+
     reg_bank_pm: reg_bank port map(
         clk => clk,
         rst => rst,
-        wr_en => wr_en,
+        wr_en => reg_write,
         address_read_0 => address_read_0,
         address_read_1 => address_read_1,
         address_write => address_write,
@@ -91,7 +100,7 @@ begin
     );
 
     ula_pm: ula port map(
-        op => op,
+        op => alu_op,
         in0 => reg_bank_out_0,
         in1 => ula_src_mux_out,
         output => ula_out
@@ -115,7 +124,7 @@ begin
     );
 
     ula_src_mux: mux2x1 port map(
-        op => ula_src_mux_op,
+        op => alu_src,
         in0 => ula_src_mux_in,
         in1 => data_in, -- connected top-level data input to 'in0' of 'ula_src_mux'
         output => ula_src_mux_out -- connected to 'ula' 'in1'
