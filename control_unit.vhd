@@ -7,7 +7,8 @@ entity control_unit is
         clk:       in std_logic;
         rst:       in std_logic;
         rom_out: out unsigned(13 downto 0);
-        pc_out: out unsigned(6 downto 0)
+        pc_out: out unsigned(6 downto 0);
+        alu_src, reg_write: out std_logic
     );
 end entity;
 
@@ -34,18 +35,15 @@ architecture a_control_unit of control_unit is
         port(
             clk:    in std_logic;
             rst:    in std_logic;
-            state:  out std_logic
+            state:  out unsigned(1 downto 0)
         );
     end component;
 
     signal pc_out_sig, pc_data_in, jump_address: unsigned(6 downto 0);
     signal opcode: unsigned(3 downto 0);
     signal rom_out_sig: unsigned(13 downto 0);
-    signal pc_wr_en, state_sig, jump_en, load_constant: std_logic;
-    signal ula_op: unsigned(1 downto 0);
-
-    signal address_reg_0, address_reg_1: unsigned(2 downto 0);
-
+    signal pc_wr_en, jump_en, load_constant: std_logic;
+    signal alu_op, state_sig: unsigned(1 downto 0);
 begin
     state_machine_pm: state_machine port map(
         clk => clk,
@@ -84,21 +82,16 @@ begin
         --* ADD opcode 0011
         --* SUB opcode 0100
 
-        ula_op <= "00" when opcode = "0001" else
+        alu_op <= "00" when opcode = "0001" else
                   "00" when opcode = "0011" else
                   "01" when opcode = "0100" else
                   "00"; -- TODO: add branches in the future
-        
-        load_constant <= '1' when opcode = "0001" else '0';
-        address_reg_0 <= "000" when opcode = "0001" rom_out_sig();
-        address_reg_1 <=;
 
-
-
-    load_constant
-    
     
     -- Execute
+     -- It's 1 when must loads a constant (LDI)
+    alu_src <= '1' when opcode = "0001" else '0';
+    reg_write <= '1' when state_sig = "10" and (opcode = "0001" or opcode = "0010" or opcode = "0011" or opcode = "0100") else '0';
 
 
 end architecture a_control_unit;
