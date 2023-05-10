@@ -44,6 +44,8 @@ architecture a_control_unit of control_unit is
     signal pc_wr_en, state_sig, jump_en, load_constant: std_logic;
     signal ula_op: unsigned(1 downto 0);
 
+    signal address_reg_0, address_reg_1: unsigned(2 downto 0);
+
 begin
     state_machine_pm: state_machine port map(
         clk => clk,
@@ -88,6 +90,9 @@ begin
                   "00"; -- TODO: add branches in the future
         
         load_constant <= '1' when opcode = "0001" else '0';
+        address_reg_0 <= "000" when opcode = "0001" rom_out_sig();
+        address_reg_1 <=;
+
 
 
     load_constant
