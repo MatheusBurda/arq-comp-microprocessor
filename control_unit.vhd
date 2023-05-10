@@ -41,7 +41,9 @@ architecture a_control_unit of control_unit is
     signal pc_out_sig, pc_data_in, jump_address: unsigned(6 downto 0);
     signal opcode: unsigned(3 downto 0);
     signal rom_out_sig: unsigned(13 downto 0);
-    signal pc_wr_en, state_sig, jump_en: std_logic;
+    signal pc_wr_en, state_sig, jump_en, load_constant: std_logic;
+    signal ula_op: unsigned(1 downto 0);
+
 begin
     state_machine_pm: state_machine port map(
         clk => clk,
@@ -64,17 +66,34 @@ begin
         data_out => pc_out_sig
     );
 
-    -- reads ROM on state 0, else, if state is 1, increment PC
-    pc_wr_en <= '0' when state_sig = '0' else '1';
+    -- Instruction Fetch
+        pc_data_in <= pc_out_sig + "0000001" when jump_en = '0' else jump_address;
+        pc_wr_en <= '0' when state_sig = "00" else '1';
+        pc_out <= pc_out_sig;
+        opcode <= rom_out_sig(13 downto 10);
 
-    pc_out <= pc_out_sig;
+    -- Instruction Decode
+        --* jump opcode "1111, jumps to the exact 7 bits rom address"
+        jump_en <= '1' when opcode = "1111" else '0';
+        jump_address <= rom_out_sig(6 downto 0);
+
+        --* LDI opcode 0001
+        --* MOV opcode 0010
+        --* ADD opcode 0011
+        --* SUB opcode 0100
+
+        ula_op <= "00" when opcode = "0001" else
+                  "00" when opcode = "0011" else
+                  "01" when opcode = "0100" else
+                  "00"; -- TODO: add branches in the future
+        
+        load_constant <= '1' when opcode = "0001" else '0';
+
+
+    load_constant
     
-    opcode <= rom_out_sig(13 downto 10);
     
-    --* jump opcode "1111, jumps to the exact 7 bits rom address"
-    jump_en <= '1' when opcode = "1111" else '0';
-    jump_address <= rom_out_sig(6 downto 0);
-    pc_data_in <= pc_out_sig + "0000001" when jump_en = '0' else jump_address;
-    --*
+    -- Execute
+
 
 end architecture a_control_unit;
