@@ -49,7 +49,6 @@ architecture a_processor of processor is
             clk:       in std_logic;
             rst:       in std_logic;
             rom: in unsigned(13 downto 0);
-            pc_out: out unsigned(6 downto 0);
             alu_src, reg_write, pc_wr_en, jump_en: out std_logic;
             alu_op: out unsigned(1 downto 0)
         );
@@ -102,7 +101,6 @@ begin
         clk => clk,
         rst => rst,
         rom => rom_data,
-        pc_out => pc_out_sig,
         alu_src => alu_src,
         reg_write => reg_write,
         pc_wr_en => pc_wr_en,

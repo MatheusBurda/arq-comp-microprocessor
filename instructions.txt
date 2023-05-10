@@ -1,0 +1,69 @@
+Carga de Constante:
+
+    LDI R, K-> carrega o valor hexadecimal 0x0A no registrador r16
+
+    0001 RRR KKKKKKKKK
+
+    RRR: Endereço do registrador
+    KKKKKKK: Constante
+
+
+Cópia de valor entre registradores:
+    A instrução MOV (Move) é usada para mover o valor de um registrador para outro. 
+
+    MOV r16, r17 -> copia o valor do registrador r17 para o registrador r16
+    
+    0010 XXX YYY 000000
+    
+    XXX: Endereço do registrador de destino
+    YYY: Endereço do registrador de origem
+
+
+Soma de dois valores:
+    A instrução "ADD" (Addition) é usada para adicionar dois valores de registradores e armazenar o resultado em um registrador.
+    
+    ADD r16, r17 -> adiciona o valor dos registradores r16 e r17 e armazena o resultado em r16
+
+    0011 ---- RRR KKK
+
+    RRR: Endereço do registrador
+    KKK: Endereço do segundo registrador
+
+Subtração de dois valores;
+    A instrução SUB (Subtraction) é usada para subtrair um valor de registrador de outro e armazenar o resultado em um registrador.
+
+    SUB r16, r17 -> subtrai o valor do registrador r17 do valor do registrador r16 e armazena o resultado em r16
+
+    0100 ---- RRR KKK
+
+    RRR: Endereço do registrador
+    KKK: Endereço do segundo registrador
+
+Desvio incondicional
+    A instrução JMP (Jump) é usada para fazer um salto incondicional para um endereço de memória específico.
+
+    JMP 0x0800 -> faz um salto para o endereço de memória 0x0800
+
+    1111 KKKKKKKKKK
+
+    KKKKKKKKKK: Endereço do salto
+
+Desvio condicional
+
+    BRNE (Branch if not Equal): faz um salto para o endereço de destino se os dois operandos comparados não forem iguais.
+
+    CP r16, r17 -> compara o valor dos registradores r16 e r17
+    BRNE label -> salta para o label se os valores comparados não forem iguais
+
+
+    BREQ (Branch if Equal): faz um salto para o endereço de destino se os dois operandos comparados forem iguais.
+
+    CP r16, r17 -> compara o valor dos registradores r16 e r17
+    BREQ label -> salta para o label se os valores comparados forem iguais
+
+
+    BRGE (Branch if Greater or Equal): faz um salto para o endereço de destino se o valor do primeiro operando for maior ou igual ao valor do segundo operando. 
+
+    CP r16, r17 -> compara o valor dos registradores r16 e r17
+    BRGE label -> salta para o label se o valor de r16 for maior ou igual ao valor de r17
+

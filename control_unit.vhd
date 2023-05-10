@@ -7,7 +7,6 @@ entity control_unit is
         clk:       in std_logic;
         rst:       in std_logic;
         rom: in unsigned(13 downto 0);
-        pc_out: out unsigned(6 downto 0);
         alu_src, reg_write, pc_wr_en, jump_en: out std_logic;
         alu_op: out unsigned(1 downto 0)
     );
@@ -22,7 +21,6 @@ architecture a_control_unit of control_unit is
         );
     end component;
 
-    signal pc_out_sig, pc_data_in, jump_address: unsigned(6 downto 0);
     signal opcode: unsigned(3 downto 0);
     signal state_sig: unsigned(1 downto 0);
 
@@ -51,7 +49,8 @@ begin
                   "00" when opcode = "0011" else
                   "01" when opcode = "0100" else
                   "00"; -- TODO: add branches in the future
-        
+
+    
     -- Execute
      -- It's 1 when must loads a constant (LDI)
     alu_src <= '1' when opcode = "0001" else '0';
