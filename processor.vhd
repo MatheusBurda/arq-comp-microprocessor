@@ -4,9 +4,7 @@ use ieee.numeric_std.all;
 
 entity processor is
     port (
-        rst, clk: in std_logic;
-        data_in: in unsigned(15 downto 0);
-        data_out: out unsigned(15 downto 0)
+        rst, clk: in std_logic
     );
 end entity;
 
@@ -70,7 +68,7 @@ architecture a_processor of processor is
         );
     end component;
     
-    signal reg_bank_out_0, ula_out, ula_src_mux_in, ula_src_mux_out: unsigned(15 downto 0);
+    signal reg_bank_out_0, ula_out, ula_src_mux_in, ula_src_mux_out, inst_constant: unsigned(15 downto 0);
     signal rom_data: unsigned(13 downto 0);
     signal pc_out_sig, pc_data_in, jump_address: unsigned(6 downto 0);
     signal opcode: unsigned(3 downto 0);
@@ -79,13 +77,6 @@ architecture a_processor of processor is
     signal alu_src, reg_write, pc_wr_en, jump_en: std_logic;
 
 begin
-    opcode <= rom_data(13 downto 10);
-
-    address_read_0 <= rom_data(5 downto 3) when opcode = "0011" or opcode = "0100" else
-                      "000" when opcode = "0001" else "000";
-
-    address_read_1 <= rom_data(2 downto 0) when opcode = "0011" or opcode = "0100";
-    address_write <= rom_data(5 downto 3) when opcode = "0011" or opcode = "0100" else rom_data(9 downto 7);
 
     reg_bank_pm: reg_bank port map(
         clk => clk,
@@ -126,7 +117,7 @@ begin
     ula_src_mux: mux2x1 port map(
         op => alu_src,
         in0 => ula_src_mux_in,
-        in1 => data_in, -- connected top-level data input to 'in0' of 'ula_src_mux'
+        in1 => inst_constant, -- connected top-level data input to 'in0' of 'ula_src_mux'
         output => ula_src_mux_out -- connected to 'ula' 'in1'
     );
 
@@ -138,7 +129,15 @@ begin
         data_out => pc_out_sig
     );
 
+    opcode <= rom_data(13 downto 10);
+
+    address_read_0 <= "000" when opcode = "0001" or opcode = "0010" else rom_data(9 downto 7);
+    address_read_1 <= rom_data(6 downto 4) when opcode = "0010" or opcode = "0011" or opcode = "0100" else "000";
+
+    address_write <= rom_data(9 downto 7);
+
+    inst_constant <= "000000000" & rom_data(6 downto 0) when rom_data(6) = '0' else "111111111" & rom_data(6 downto 0);
     jump_address <= rom_data(6 downto 0);
+
     pc_data_in <= pc_out_sig + "0000001" when jump_en = '0' else jump_address;
-    data_out <= ula_out;
 end architecture;

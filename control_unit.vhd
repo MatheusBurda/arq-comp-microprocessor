@@ -32,14 +32,12 @@ begin
         state => state_sig
     );
 
-    -- Instruction Fetch
-        pc_wr_en <= '0' when state_sig = "00" else '1';
+    -- Instruction Fetch --> state_sig == 00
+        pc_wr_en <= '1' when state_sig = "00" else '0';
+        
+    -- Instruction Decode --> state_sig == 01
         opcode <= rom(13 downto 10);
-
-    -- Instruction Decode
         --* jump opcode "1111, jumps to the exact 7 bits rom address"
-        jump_en <= '1' when opcode = "1111" else '0';
-
         --* LDI opcode 0001
         --* MOV opcode 0010
         --* ADD opcode 0011
@@ -51,9 +49,10 @@ begin
                   "00"; -- TODO: add branches in the future
 
     
-    -- Execute
-     -- It's 1 when must loads a constant (LDI)
+    -- Execute 
+        -- It's 1 when must loads a constant (LDI)
     alu_src <= '1' when opcode = "0001" else '0';
+    jump_en <= '1' when opcode = "1111" else '0';
     reg_write <= '1' when state_sig = "10" and (opcode = "0001" or opcode = "0010" or opcode = "0011" or opcode = "0100") else '0';
 
 

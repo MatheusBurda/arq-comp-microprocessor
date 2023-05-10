@@ -2,7 +2,7 @@ Carga de Constante:
 
     LDI R, K-> carrega o valor hexadecimal 0x0A no registrador r16
 
-    0001 RRR KKKKKKKKK
+    0001 RRR KKKKKKK
 
     RRR: Endereço do registrador
     KKKKKKK: Constante
@@ -13,7 +13,7 @@ Cópia de valor entre registradores:
 
     MOV r16, r17 -> copia o valor do registrador r17 para o registrador r16
     
-    0010 XXX YYY 000000
+    0010 XXX YYY ----
     
     XXX: Endereço do registrador de destino
     YYY: Endereço do registrador de origem
@@ -24,7 +24,7 @@ Soma de dois valores:
     
     ADD r16, r17 -> adiciona o valor dos registradores r16 e r17 e armazena o resultado em r16
 
-    0011 ---- RRR KKK
+    0011 RRR KKK ----
 
     RRR: Endereço do registrador
     KKK: Endereço do segundo registrador
@@ -34,7 +34,7 @@ Subtração de dois valores;
 
     SUB r16, r17 -> subtrai o valor do registrador r17 do valor do registrador r16 e armazena o resultado em r16
 
-    0100 ---- RRR KKK
+    0100 RRR KKK ----
 
     RRR: Endereço do registrador
     KKK: Endereço do segundo registrador
