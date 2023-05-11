@@ -18,7 +18,7 @@ begin
     process(clk,rst,wr_en)
     begin
         if rst='1' then
-            registry <= "0000000";
+            registry <= "1111111";
         elsif wr_en='1' then
             if rising_edge(clk) then
                 registry <= data_in;
