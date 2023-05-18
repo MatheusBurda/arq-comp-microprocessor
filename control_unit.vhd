@@ -7,7 +7,7 @@ entity control_unit is
         clk:       in std_logic;
         rst:       in std_logic;
         rom: in unsigned(13 downto 0);
-        alu_src, reg_write, pc_wr_en, jump_en: out std_logic;
+        alu_src, reg_write, pc_wr_en, jump_en, inst_write: out std_logic;
         alu_op: out unsigned(1 downto 0)
     );
 end entity;
@@ -33,9 +33,10 @@ begin
     );
 
     -- Instruction Fetch --> state_sig == 00
-        pc_wr_en <= '1' when state_sig = "00" else '0';
+        pc_wr_en <= '1' when state_sig = "10" else '0';
         
     -- Instruction Decode --> state_sig == 01
+        inst_write <= '1' when state_sig = "01" else '0';
         opcode <= rom(13 downto 10);
         --* jump opcode "1111, jumps to the exact 7 bits rom address"
         --* LDI opcode 0001

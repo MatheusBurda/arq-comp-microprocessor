@@ -16,7 +16,7 @@ begin
     process(clk,rst)
     begin
         if rst='1' then
-            state_sig <= "00";
+            state_sig <= "10";
         elsif rising_edge(clk) then
             if state_sig = "10" then
                 state_sig <= "00";
