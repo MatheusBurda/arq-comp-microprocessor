@@ -1,3 +1,5 @@
+Instruçoes de 14 bits
+
 Carga de Constante:
 
     LDI R, K-> carrega o valor hexadecimal 0x0A no registrador r16
@@ -50,20 +52,26 @@ Desvio incondicional
 
 Desvio condicional
 
+    CP r16, r17 -> compara o valor dos registradores r16 e r17
+    OPCODE 0101 XXX YYY ----
+
+
+
     BRNE (Branch if not Equal): faz um salto para o endereço de destino se os dois operandos comparados não forem iguais.
 
-    CP r16, r17 -> compara o valor dos registradores r16 e r17
     BRNE label -> salta para o label se os valores comparados não forem iguais
+
+    OPCODE: 0110
+    
+    0110 
 
 
     BREQ (Branch if Equal): faz um salto para o endereço de destino se os dois operandos comparados forem iguais.
 
-    CP r16, r17 -> compara o valor dos registradores r16 e r17
     BREQ label -> salta para o label se os valores comparados forem iguais
 
 
     BRGE (Branch if Greater or Equal): faz um salto para o endereço de destino se o valor do primeiro operando for maior ou igual ao valor do segundo operando. 
 
-    CP r16, r17 -> compara o valor dos registradores r16 e r17
     BRGE label -> salta para o label se o valor de r16 for maior ou igual ao valor de r17
 

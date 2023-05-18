@@ -148,6 +148,14 @@ begin
         data_out => inst_reg
     );
 
+    compare_pm: reg port map(
+        clk => clk,
+        rst => rst,
+        wr_en => write_compare,
+        data_in => ula_out,
+        data_out => compare_out
+    );
+
     opcode <= inst_reg(13 downto 10);
 
     address_read_0 <= "000" when opcode = "0001" or opcode = "0010" else inst_reg(9 downto 7);
