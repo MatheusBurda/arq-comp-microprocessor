@@ -7,7 +7,7 @@ entity control_unit is
         clk:       in std_logic;
         rst:       in std_logic;
         rom: in unsigned(13 downto 0);
-        alu_src, reg_write, pc_wr_en, jump_en, inst_write: out std_logic;
+        alu_src, reg_write, pc_wr_en, jump_en, inst_write, flag_write: out std_logic;
         alu_op: out unsigned(1 downto 0)
     );
 end entity;
@@ -54,6 +54,7 @@ begin
         -- It's 1 when must loads a constant (LDI)
     alu_src <= '1' when opcode = "0001" else '0';
     jump_en <= '1' when opcode = "1111" else '0';
+    flag_write <= '1' when opcode = "0101" else '0';
     reg_write <= '1' when state_sig = "10" and (opcode = "0001" or opcode = "0010" or opcode = "0011" or opcode = "0100") else '0';
 
 

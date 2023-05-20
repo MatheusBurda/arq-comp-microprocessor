@@ -23,8 +23,8 @@ architecture a_ula of ula is
     signal mux_add, mux_sub, mux_ge, mux_dif: unsigned(16 downto 0);
     signal op_mux: unsigned(1 downto 0);
 
-    constant ZERO: unsigned(15 downto 0) := "0000000000000000";
-    constant ONE: unsigned(15 downto 0) := "0000000000000001";
+    constant ZERO: unsigned(16 downto 0) := "00000000000000000";
+    constant ONE: unsigned(16 downto 0) := "00000000000000001";
     
 begin
 

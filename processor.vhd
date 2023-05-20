@@ -14,6 +14,7 @@ architecture a_processor of processor is
         port(
             op      : in unsigned(1 downto 0);
             in0, in1: in unsigned(15 downto 0);
+            c_sub, eq: out std_logic;
             output  : out unsigned(15 downto 0)
         );
     end component;
@@ -45,7 +46,7 @@ architecture a_processor of processor is
             clk:       in std_logic;
             rst:       in std_logic;
             rom: in unsigned(13 downto 0);
-            alu_src, reg_write, pc_wr_en, jump_en, inst_write: out std_logic;
+            alu_src, reg_write, pc_wr_en, jump_en, inst_write, flag_write: out std_logic;
             alu_op: out unsigned(1 downto 0)
         );
     end component;
@@ -80,11 +81,11 @@ architecture a_processor of processor is
     
     signal reg_bank_out_0, ula_out, ula_src_mux_in, ula_src_mux_out, inst_constant: unsigned(15 downto 0);
     signal rom_data, inst_reg: unsigned(13 downto 0);
-    signal pc_out_sig, pc_data_in, jump_address: unsigned(6 downto 0);
+    signal pc_out_sig, pc_data_in, jump_address, branch_range: unsigned(6 downto 0);
     signal opcode: unsigned(3 downto 0);
     signal address_read_0, address_read_1, address_write: unsigned(2 downto 0);
     signal alu_op: unsigned(1 downto 0);
-    signal alu_src, reg_write, pc_wr_en, inst_write, jump_en: std_logic;
+    signal alu_src, reg_write, pc_wr_en, inst_write, jump_en, carry_sig, eq_sig, carry_state, eq_state, flag_write: std_logic;
 
 begin
 
@@ -104,6 +105,8 @@ begin
         op => alu_op,
         in0 => reg_bank_out_0,
         in1 => ula_src_mux_out,
+        c_sub => carry_sig,
+        eq => eq_sig,
         output => ula_out
     );
 
@@ -116,7 +119,8 @@ begin
         pc_wr_en => pc_wr_en,
         alu_op => alu_op,
         jump_en => jump_en,
-        inst_write => inst_write
+        inst_write => inst_write,
+        flag_write => flag_write
     );
 
     rom_pm: rom port map(
@@ -148,13 +152,19 @@ begin
         data_out => inst_reg
     );
 
-    compare_pm: reg port map(
-        clk => clk,
-        rst => rst,
-        wr_en => write_compare,
-        data_in => ula_out,
-        data_out => compare_out
-    );
+    -- Carry and Equal flags process
+    process(clk,rst, flag_write)
+    begin
+        if rst='1' then
+            eq_state <= '0';
+            carry_state <= '0';
+        elsif flag_write = '1' then
+            if rising_edge(clk) then
+                eq_state <= eq_sig;
+                carry_state <= carry_sig;
+            end if;
+        end if;
+    end process;
 
     opcode <= inst_reg(13 downto 10);
 
@@ -165,6 +175,12 @@ begin
 
     inst_constant <= "000000000" & inst_reg(6 downto 0) when inst_reg(6) = '0' else "111111111" & inst_reg(6 downto 0);
     jump_address <= inst_reg(6 downto 0);
+    branch_range <= inst_reg(9 downto 3);
 
-    pc_data_in <= pc_out_sig + "0000001" when jump_en = '0' else jump_address;
+    pc_data_in <=
+        pc_out_sig + jump_address when opcode = "1000" and ((eq_state = '1' and carry_state = '0') or (eq_state = '0' and carry_state = '0')) else  -- branch if equal or greater than
+        pc_out_sig + jump_address when opcode = "0111" and (eq_state = '1' and carry_state = '0') else  -- branch if equal
+        pc_out_sig + jump_address when opcode = "0110" and (eq_state = '0' or carry_state = '1') else  -- branch if not equal
+        pc_out_sig + "0000001" when jump_en = '0' else
+        jump_address;
 end architecture;
