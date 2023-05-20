@@ -19,7 +19,7 @@ que faz o seguinte:
 6. Copia valor de R4 para R
 
         ldi r1, 1     0001 001 0000001
-        ldi r2, 31    0001 010 0011111
+        ldi r2, 29    0001 010 0011101
         ldi r3, 0     0001 011 0000000
         ldi r4, 0     0001 100 0000000
         add r4, r3    0011 100 011 0000

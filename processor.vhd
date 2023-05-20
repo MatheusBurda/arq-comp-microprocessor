@@ -169,7 +169,7 @@ begin
     opcode <= inst_reg(13 downto 10);
 
     address_read_0 <= "000" when opcode = "0001" or opcode = "0010" else inst_reg(9 downto 7);
-    address_read_1 <= inst_reg(6 downto 4) when opcode = "0010" or opcode = "0011" or opcode = "0100" else "000";
+    address_read_1 <= inst_reg(6 downto 4) when opcode = "0101" or opcode = "0010" or opcode = "0011" or opcode = "0100" else "000";
 
     address_write <= inst_reg(9 downto 7);
 
