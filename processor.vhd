@@ -178,9 +178,9 @@ begin
     branch_range <= inst_reg(9 downto 3);
 
     pc_data_in <=
-        pc_out_sig + jump_address when opcode = "1000" and ((eq_state = '1' and carry_state = '0') or (eq_state = '0' and carry_state = '0')) else  -- branch if equal or greater than
-        pc_out_sig + jump_address when opcode = "0111" and (eq_state = '1' and carry_state = '0') else  -- branch if equal
-        pc_out_sig + jump_address when opcode = "0110" and (eq_state = '0' or carry_state = '1') else  -- branch if not equal
+        pc_out_sig + branch_range when opcode = "1000" and ((eq_state = '1' and carry_state = '0') or (eq_state = '0' and carry_state = '0')) else  -- branch if equal or greater than
+        pc_out_sig + branch_range when opcode = "0111" and (eq_state = '1' and carry_state = '0') else  -- branch if equal
+        pc_out_sig + branch_range when opcode = "0110" and (eq_state = '0' or carry_state = '1') else  -- branch if not equal
         pc_out_sig + "0000001" when jump_en = '0' else
         jump_address;
 end architecture;
