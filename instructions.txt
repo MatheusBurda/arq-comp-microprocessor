@@ -83,3 +83,23 @@ Desvio condicional
     1000 -> OPCODE
     KKKKKKK Branch Value
 
+Carga de dados da RAM
+    
+    LD: Carregar dados, em r16, da RAM do endereço que está no registrador r17
+    LD r16, r17
+
+    OPCODE: 1001 RRR XXX ----
+
+    RRR: Endereço do registrador de destino
+    XXX: Ponteiro para o dado da memória
+
+
+Carga de dados na RAM
+
+    ST: Carregar dados na RAM, no endereço apontado por r17, o conteudo de r16
+    ST r17, r16
+
+    OPCODE: 1010 XXX RRR ----
+
+    XXX: Ponteiro para o dado da memória
+    RRR: Endereço do registrador de destino
