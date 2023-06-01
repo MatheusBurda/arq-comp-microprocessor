@@ -18,15 +18,15 @@ que faz o seguinte:
 5. Se R3<30 salta para a instrução do passo 3 *
 6. Copia valor de R4 para R
 
-        ldi r1, 1     0001 001 0000001
-        ldi r2, 29    0001 010 0011101
-        ldi r3, 0     0001 011 0000000
-        ldi r4, 0     0001 100 0000000
-        add r4, r3    0011 100 011 0000
-        add r3, r1    0011 011 001 0000
-        cp r2, r3     0101 010 011 0000
-        brge -3       1000 1111101 000 -- 3 está em complemento de 2
-        mov r5, r4    0010 101 100 0000
+0       ldi r1, 1     0001 001 0000001
+1       ldi r2, 29    0001 010 0011101
+2       ldi r3, 0     0001 011 0000000
+3       ldi r4, 0     0001 100 0000000
+4       add r4, r3    0011 100 011 0000
+5       add r3, r1    0011 011 001 0000
+6       cp r2, r3     0101 010 011 0000
+7       brge -3       1000 1111101 000 -- 3 está em complemento de 2
+8       mov r5, r4    0010 101 100 0000
 
 
 

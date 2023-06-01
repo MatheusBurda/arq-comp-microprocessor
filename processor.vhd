@@ -14,7 +14,7 @@ architecture a_processor of processor is
         port(
             op      : in unsigned(1 downto 0);
             in0, in1: in unsigned(15 downto 0);
-            c_sub, eq: out std_logic;
+            c_sub, zero: out std_logic;
             output  : out unsigned(15 downto 0)
         );
     end component;
@@ -85,7 +85,7 @@ architecture a_processor of processor is
     signal opcode: unsigned(3 downto 0);
     signal address_read_0, address_read_1, address_write: unsigned(2 downto 0);
     signal alu_op: unsigned(1 downto 0);
-    signal alu_src, reg_write, pc_wr_en, inst_write, jump_en, carry_sig, eq_sig, carry_state, eq_state, flag_write: std_logic;
+    signal alu_src, reg_write, pc_wr_en, inst_write, jump_en, carry_sig, zero_sig, carry_state, zero_state, flag_write: std_logic;
 
 begin
 
@@ -106,7 +106,7 @@ begin
         in0 => reg_bank_out_0,
         in1 => ula_src_mux_out,
         c_sub => carry_sig,
-        eq => eq_sig,
+        zero => zero_sig,
         output => ula_out
     );
 
@@ -156,11 +156,11 @@ begin
     process(clk,rst, flag_write)
     begin
         if rst='1' then
-            eq_state <= '0';
+            zero_state <= '0';
             carry_state <= '0';
         elsif flag_write = '1' then
             if rising_edge(clk) then
-                eq_state <= eq_sig;
+                zero_state <= zero_sig;
                 carry_state <= carry_sig;
             end if;
         end if;
@@ -178,9 +178,18 @@ begin
     branch_range <= inst_reg(9 downto 3);
 
     pc_data_in <=
-        pc_out_sig + branch_range when opcode = "1000" and ((eq_state = '1' and carry_state = '0') or (eq_state = '0' and carry_state = '0')) else  -- branch if equal or greater than
-        pc_out_sig + branch_range when opcode = "0111" and (eq_state = '1' and carry_state = '0') else  -- branch if equal
-        pc_out_sig + branch_range when opcode = "0110" and (eq_state = '0' or carry_state = '1') else  -- branch if not equal
+    -- branch if equal or greater than
+        pc_out_sig + branch_range when opcode = "1000" and ((zero_state = '1' and carry_state = '0') or (zero_state = '0' and carry_state = '0')) else  
+
+    -- branch if equal
+        pc_out_sig + branch_range when opcode = "0111" and (zero_state = '1' and carry_state = '0') else  
+
+    -- branch if not equal
+        pc_out_sig + branch_range when opcode = "0110" and (zero_state = '0' or carry_state = '1') else  
+
+    -- next instruction
         pc_out_sig + "0000001" when jump_en = '0' else
+        
+    -- jump
         jump_address;
 end architecture;

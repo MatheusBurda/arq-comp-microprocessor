@@ -4,10 +4,10 @@ use ieee.numeric_std.all;
 
 entity ula is
     port(
-        op      : in unsigned(1 downto 0); -- select the operation
-        in0, in1: in unsigned(15 downto 0); -- inputs
-        c_sub, eq: out std_logic;           -- Carry out and flag if equal
-        output  : out unsigned(15 downto 0) -- outputs
+        op      : in unsigned(1 downto 0);      -- select the operation
+        in0, in1: in unsigned(15 downto 0);     -- inputs
+        c_sub, zero: out std_logic;             -- Carry out and flag if equal
+        output  : out unsigned(15 downto 0)     -- outputs
     );
 end entity;
 
@@ -23,9 +23,6 @@ architecture a_ula of ula is
     signal mux_add, mux_sub, mux_ge, mux_dif: unsigned(16 downto 0);
     signal op_mux: unsigned(1 downto 0);
 
-    constant ZERO: unsigned(16 downto 0) := "00000000000000000";
-    constant ONE: unsigned(16 downto 0) := "00000000000000001";
-    
 begin
 
     mux: mux4x1 port map (
@@ -48,11 +45,13 @@ begin
 
     mux_sub <= ('0' & in0) - ('0' & in1);
     
-    mux_ge <= ONE when (('0' & in0) >= ('0' & in1)) else ZERO;
+    mux_ge <= "00000000000000001" when (('0' & in0) >= ('0' & in1)) else "00000000000000000";
     
-    mux_dif <= ONE when (('0' & in0) /= ('0' & in1)) else ZERO;
+    mux_dif <= "00000000000000001" when (('0' & in0) /= ('0' & in1)) else "00000000000000000";
 
-    c_sub <= mux_sub(16);
-    eq <= '1' when in0 = in1 else '0';
+    -- c_sub <= mux_sub(16);
+    c_sub <= mux_add(16) when op = "00" else mux_sub(16);
+
+    zero <= '1' when in0 = in1 else '0';
 
 end architecture;
