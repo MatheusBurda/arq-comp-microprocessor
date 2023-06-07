@@ -7,7 +7,7 @@ entity control_unit is
         clk:       in std_logic;
         rst:       in std_logic;
         rom: in unsigned(13 downto 0);
-        alu_src, reg_write, pc_wr_en, jump_en, inst_write, flag_write: out std_logic;
+        alu_src, reg_write, pc_wr_en, jump_en, inst_write, flag_write, ram_write: out std_logic;
         alu_op: out unsigned(1 downto 0)
     );
 end entity;
@@ -62,7 +62,9 @@ begin
                     '1' when opcode = "0101" else 
                     '0';
                     
-    reg_write <= '1' when state_sig = "10" and (opcode = "0001" or opcode = "0010" or opcode = "0011" or opcode = "0100") else '0';
+    reg_write <= '1' when state_sig = "10" and (opcode = "0001" or opcode = "0010" or opcode = "0011" or opcode = "0100" or opcode = "1001") else '0';
+    
+    ram_write <= '1' when state_sig = "10" and opcode = "1010" else '0';
 
 
 end architecture a_control_unit;

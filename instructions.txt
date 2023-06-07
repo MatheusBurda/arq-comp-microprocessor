@@ -102,4 +102,4 @@ Carga de dados na RAM
     OPCODE: 1010 XXX RRR ----
 
     XXX: Ponteiro para o dado da memória
-    RRR: Endereço do registrador de destino
+    RRR: Endereço do registrador com o conteudo

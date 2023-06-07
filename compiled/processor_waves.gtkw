@@ -1,22 +1,28 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Thu Jun  1 19:15:07 2023
+[*] Wed Jun  7 02:45:26 2023
 [*]
-[dumpfile] "/mnt/Shared/UTFPR/6/arq-comp/processador/compiled/processor_tb.ghw"
-[dumpfile_mtime] "Thu Jun  1 19:14:55 2023"
-[dumpfile_size] 65315
-[savefile] "/mnt/Shared/UTFPR/6/arq-comp/processador/compiled/processor_waves.gtkw"
+[dumpfile] "/home/forestileao/Documents/facul/arq-comp-microprocessor/compiled/processor_tb.ghw"
+[dumpfile_mtime] "Wed Jun  7 02:44:31 2023"
+[dumpfile_size] 45129
+[savefile] "/home/forestileao/Documents/facul/arq-comp-microprocessor/compiled/processor_waves.gtkw"
 [timestart] 0
-[size] 1000 600
-[pos] -1 -1
-*-31.000000 223190000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1811 684
+[pos] -45 440
+*-26.000000 218400000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.processor_tb.
 [treeopen] top.processor_tb.uut.
+[treeopen] top.processor_tb.uut.reg_bank_pm.
+[treeopen] top.processor_tb.uut.reg_bank_pm.reg2.
+[treeopen] top.processor_tb.uut.reg_bank_pm.reg3.
+[treeopen] top.processor_tb.uut.reg_bank_pm.reg4.
+[treeopen] top.processor_tb.uut.reg_bank_pm.reg6.
+[treeopen] top.processor_tb.uut.reg_bank_pm.reg7.
 [sst_width] 221
 [signals_width] 221
 [sst_expanded] 1
-[sst_vpaned_height] 287
+[sst_vpaned_height] 368
 @28
 top.processor_tb.clk
 top.processor_tb.rst
@@ -50,10 +56,15 @@ top.processor_tb.uut.reg_bank_pm.data_out_1[0]
 -group_end
 @22
 +{saida ula} #{top.processor_tb.uut.ula_pm.output[15:0]} top.processor_tb.uut.ula_pm.output[15] top.processor_tb.uut.ula_pm.output[14] top.processor_tb.uut.ula_pm.output[13] top.processor_tb.uut.ula_pm.output[12] top.processor_tb.uut.ula_pm.output[11] top.processor_tb.uut.ula_pm.output[10] top.processor_tb.uut.ula_pm.output[9] top.processor_tb.uut.ula_pm.output[8] top.processor_tb.uut.ula_pm.output[7] top.processor_tb.uut.ula_pm.output[6] top.processor_tb.uut.ula_pm.output[5] top.processor_tb.uut.ula_pm.output[4] top.processor_tb.uut.ula_pm.output[3] top.processor_tb.uut.ula_pm.output[2] top.processor_tb.uut.ula_pm.output[1] top.processor_tb.uut.ula_pm.output[0]
-@25
+@24
++{reg1} #{top.processor_tb.uut.reg_bank_pm.reg_out_1[15:0]} top.processor_tb.uut.reg_bank_pm.reg_out_1[15] top.processor_tb.uut.reg_bank_pm.reg_out_1[14] top.processor_tb.uut.reg_bank_pm.reg_out_1[13] top.processor_tb.uut.reg_bank_pm.reg_out_1[12] top.processor_tb.uut.reg_bank_pm.reg_out_1[11] top.processor_tb.uut.reg_bank_pm.reg_out_1[10] top.processor_tb.uut.reg_bank_pm.reg_out_1[9] top.processor_tb.uut.reg_bank_pm.reg_out_1[8] top.processor_tb.uut.reg_bank_pm.reg_out_1[7] top.processor_tb.uut.reg_bank_pm.reg_out_1[6] top.processor_tb.uut.reg_bank_pm.reg_out_1[5] top.processor_tb.uut.reg_bank_pm.reg_out_1[4] top.processor_tb.uut.reg_bank_pm.reg_out_1[3] top.processor_tb.uut.reg_bank_pm.reg_out_1[2] top.processor_tb.uut.reg_bank_pm.reg_out_1[1] top.processor_tb.uut.reg_bank_pm.reg_out_1[0]
++{reg2} #{top.processor_tb.uut.reg_bank_pm.reg2.data_out[15:0]} top.processor_tb.uut.reg_bank_pm.reg2.data_out[15] top.processor_tb.uut.reg_bank_pm.reg2.data_out[14] top.processor_tb.uut.reg_bank_pm.reg2.data_out[13] top.processor_tb.uut.reg_bank_pm.reg2.data_out[12] top.processor_tb.uut.reg_bank_pm.reg2.data_out[11] top.processor_tb.uut.reg_bank_pm.reg2.data_out[10] top.processor_tb.uut.reg_bank_pm.reg2.data_out[9] top.processor_tb.uut.reg_bank_pm.reg2.data_out[8] top.processor_tb.uut.reg_bank_pm.reg2.data_out[7] top.processor_tb.uut.reg_bank_pm.reg2.data_out[6] top.processor_tb.uut.reg_bank_pm.reg2.data_out[5] top.processor_tb.uut.reg_bank_pm.reg2.data_out[4] top.processor_tb.uut.reg_bank_pm.reg2.data_out[3] top.processor_tb.uut.reg_bank_pm.reg2.data_out[2] top.processor_tb.uut.reg_bank_pm.reg2.data_out[1] top.processor_tb.uut.reg_bank_pm.reg2.data_out[0]
 +{reg3} #{top.processor_tb.uut.reg_bank_pm.reg3.data_out[15:0]} top.processor_tb.uut.reg_bank_pm.reg3.data_out[15] top.processor_tb.uut.reg_bank_pm.reg3.data_out[14] top.processor_tb.uut.reg_bank_pm.reg3.data_out[13] top.processor_tb.uut.reg_bank_pm.reg3.data_out[12] top.processor_tb.uut.reg_bank_pm.reg3.data_out[11] top.processor_tb.uut.reg_bank_pm.reg3.data_out[10] top.processor_tb.uut.reg_bank_pm.reg3.data_out[9] top.processor_tb.uut.reg_bank_pm.reg3.data_out[8] top.processor_tb.uut.reg_bank_pm.reg3.data_out[7] top.processor_tb.uut.reg_bank_pm.reg3.data_out[6] top.processor_tb.uut.reg_bank_pm.reg3.data_out[5] top.processor_tb.uut.reg_bank_pm.reg3.data_out[4] top.processor_tb.uut.reg_bank_pm.reg3.data_out[3] top.processor_tb.uut.reg_bank_pm.reg3.data_out[2] top.processor_tb.uut.reg_bank_pm.reg3.data_out[1] top.processor_tb.uut.reg_bank_pm.reg3.data_out[0]
 +{reg4} #{top.processor_tb.uut.reg_bank_pm.reg4.data_out[15:0]} top.processor_tb.uut.reg_bank_pm.reg4.data_out[15] top.processor_tb.uut.reg_bank_pm.reg4.data_out[14] top.processor_tb.uut.reg_bank_pm.reg4.data_out[13] top.processor_tb.uut.reg_bank_pm.reg4.data_out[12] top.processor_tb.uut.reg_bank_pm.reg4.data_out[11] top.processor_tb.uut.reg_bank_pm.reg4.data_out[10] top.processor_tb.uut.reg_bank_pm.reg4.data_out[9] top.processor_tb.uut.reg_bank_pm.reg4.data_out[8] top.processor_tb.uut.reg_bank_pm.reg4.data_out[7] top.processor_tb.uut.reg_bank_pm.reg4.data_out[6] top.processor_tb.uut.reg_bank_pm.reg4.data_out[5] top.processor_tb.uut.reg_bank_pm.reg4.data_out[4] top.processor_tb.uut.reg_bank_pm.reg4.data_out[3] top.processor_tb.uut.reg_bank_pm.reg4.data_out[2] top.processor_tb.uut.reg_bank_pm.reg4.data_out[1] top.processor_tb.uut.reg_bank_pm.reg4.data_out[0]
 +{reg5} #{top.processor_tb.uut.reg_bank_pm.reg5.data_out[15:0]} top.processor_tb.uut.reg_bank_pm.reg5.data_out[15] top.processor_tb.uut.reg_bank_pm.reg5.data_out[14] top.processor_tb.uut.reg_bank_pm.reg5.data_out[13] top.processor_tb.uut.reg_bank_pm.reg5.data_out[12] top.processor_tb.uut.reg_bank_pm.reg5.data_out[11] top.processor_tb.uut.reg_bank_pm.reg5.data_out[10] top.processor_tb.uut.reg_bank_pm.reg5.data_out[9] top.processor_tb.uut.reg_bank_pm.reg5.data_out[8] top.processor_tb.uut.reg_bank_pm.reg5.data_out[7] top.processor_tb.uut.reg_bank_pm.reg5.data_out[6] top.processor_tb.uut.reg_bank_pm.reg5.data_out[5] top.processor_tb.uut.reg_bank_pm.reg5.data_out[4] top.processor_tb.uut.reg_bank_pm.reg5.data_out[3] top.processor_tb.uut.reg_bank_pm.reg5.data_out[2] top.processor_tb.uut.reg_bank_pm.reg5.data_out[1] top.processor_tb.uut.reg_bank_pm.reg5.data_out[0]
-+{reg1} #{top.processor_tb.uut.reg_bank_pm.reg_out_1[15:0]} top.processor_tb.uut.reg_bank_pm.reg_out_1[15] top.processor_tb.uut.reg_bank_pm.reg_out_1[14] top.processor_tb.uut.reg_bank_pm.reg_out_1[13] top.processor_tb.uut.reg_bank_pm.reg_out_1[12] top.processor_tb.uut.reg_bank_pm.reg_out_1[11] top.processor_tb.uut.reg_bank_pm.reg_out_1[10] top.processor_tb.uut.reg_bank_pm.reg_out_1[9] top.processor_tb.uut.reg_bank_pm.reg_out_1[8] top.processor_tb.uut.reg_bank_pm.reg_out_1[7] top.processor_tb.uut.reg_bank_pm.reg_out_1[6] top.processor_tb.uut.reg_bank_pm.reg_out_1[5] top.processor_tb.uut.reg_bank_pm.reg_out_1[4] top.processor_tb.uut.reg_bank_pm.reg_out_1[3] top.processor_tb.uut.reg_bank_pm.reg_out_1[2] top.processor_tb.uut.reg_bank_pm.reg_out_1[1] top.processor_tb.uut.reg_bank_pm.reg_out_1[0]
+@25
++{reg6} #{top.processor_tb.uut.reg_bank_pm.reg6.data_out[15:0]} top.processor_tb.uut.reg_bank_pm.reg6.data_out[15] top.processor_tb.uut.reg_bank_pm.reg6.data_out[14] top.processor_tb.uut.reg_bank_pm.reg6.data_out[13] top.processor_tb.uut.reg_bank_pm.reg6.data_out[12] top.processor_tb.uut.reg_bank_pm.reg6.data_out[11] top.processor_tb.uut.reg_bank_pm.reg6.data_out[10] top.processor_tb.uut.reg_bank_pm.reg6.data_out[9] top.processor_tb.uut.reg_bank_pm.reg6.data_out[8] top.processor_tb.uut.reg_bank_pm.reg6.data_out[7] top.processor_tb.uut.reg_bank_pm.reg6.data_out[6] top.processor_tb.uut.reg_bank_pm.reg6.data_out[5] top.processor_tb.uut.reg_bank_pm.reg6.data_out[4] top.processor_tb.uut.reg_bank_pm.reg6.data_out[3] top.processor_tb.uut.reg_bank_pm.reg6.data_out[2] top.processor_tb.uut.reg_bank_pm.reg6.data_out[1] top.processor_tb.uut.reg_bank_pm.reg6.data_out[0]
+@24
++{reg7} #{top.processor_tb.uut.reg_bank_pm.reg7.data_out[15:0]} top.processor_tb.uut.reg_bank_pm.reg7.data_out[15] top.processor_tb.uut.reg_bank_pm.reg7.data_out[14] top.processor_tb.uut.reg_bank_pm.reg7.data_out[13] top.processor_tb.uut.reg_bank_pm.reg7.data_out[12] top.processor_tb.uut.reg_bank_pm.reg7.data_out[11] top.processor_tb.uut.reg_bank_pm.reg7.data_out[10] top.processor_tb.uut.reg_bank_pm.reg7.data_out[9] top.processor_tb.uut.reg_bank_pm.reg7.data_out[8] top.processor_tb.uut.reg_bank_pm.reg7.data_out[7] top.processor_tb.uut.reg_bank_pm.reg7.data_out[6] top.processor_tb.uut.reg_bank_pm.reg7.data_out[5] top.processor_tb.uut.reg_bank_pm.reg7.data_out[4] top.processor_tb.uut.reg_bank_pm.reg7.data_out[3] top.processor_tb.uut.reg_bank_pm.reg7.data_out[2] top.processor_tb.uut.reg_bank_pm.reg7.data_out[1] top.processor_tb.uut.reg_bank_pm.reg7.data_out[0]
 [pattern_trace] 1
 [pattern_trace] 0

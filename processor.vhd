@@ -46,7 +46,7 @@ architecture a_processor of processor is
             clk:       in std_logic;
             rst:       in std_logic;
             rom: in unsigned(13 downto 0);
-            alu_src, reg_write, pc_wr_en, jump_en, inst_write, flag_write: out std_logic;
+            alu_src, reg_write, pc_wr_en, jump_en, inst_write, flag_write, ram_write: out std_logic;
             alu_op: out unsigned(1 downto 0)
         );
     end component;
@@ -78,14 +78,24 @@ architecture a_processor of processor is
             data_out:  out unsigned(13 downto 0)
         );
     end component;
+
+    component ram
+        port(
+            clk : in std_logic;
+            address : in unsigned(6 downto 0);
+            wr_en : in std_logic;
+            data_in : in unsigned(15 downto 0);
+            data_out : out unsigned(15 downto 0)
+        );
+    end component;
     
-    signal reg_bank_out_0, ula_out, ula_src_mux_in, ula_src_mux_out, inst_constant: unsigned(15 downto 0);
+    signal reg_bank_out_0, ula_out, reg_bank_out_1, ula_src_mux_out, inst_constant, ram_data_in, ram_data_out, reg_bank_in: unsigned(15 downto 0);
     signal rom_data, inst_reg: unsigned(13 downto 0);
-    signal pc_out_sig, pc_data_in, jump_address, branch_range: unsigned(6 downto 0);
+    signal pc_out_sig, pc_data_in, jump_address, branch_range, ram_address: unsigned(6 downto 0);
     signal opcode: unsigned(3 downto 0);
     signal address_read_0, address_read_1, address_write: unsigned(2 downto 0);
     signal alu_op: unsigned(1 downto 0);
-    signal alu_src, reg_write, pc_wr_en, inst_write, jump_en, carry_sig, zero_sig, carry_state, zero_state, flag_write: std_logic;
+    signal alu_src, reg_write, pc_wr_en, inst_write, jump_en, carry_sig, zero_sig, carry_state, zero_state, flag_write, ram_write: std_logic;
 
 begin
 
@@ -96,9 +106,9 @@ begin
         address_read_0 => address_read_0,
         address_read_1 => address_read_1,
         address_write => address_write,
-        data_in => ula_out,
+        data_in => reg_bank_in,
         data_out_0 => reg_bank_out_0,
-        data_out_1 => ula_src_mux_in -- connected to 'ula_src_mux' 'in0'
+        data_out_1 => reg_bank_out_1 -- connected to 'ula_src_mux' 'in0'
     );
 
     ula_pm: ula port map(
@@ -120,7 +130,8 @@ begin
         alu_op => alu_op,
         jump_en => jump_en,
         inst_write => inst_write,
-        flag_write => flag_write
+        flag_write => flag_write,
+        ram_write => ram_write
     );
 
     rom_pm: rom port map(
@@ -131,7 +142,7 @@ begin
 
     ula_src_mux: mux2x1 port map(
         op => alu_src,
-        in0 => ula_src_mux_in,
+        in0 => reg_bank_out_1,
         in1 => inst_constant, -- connected top-level data input to 'in0' of 'ula_src_mux'
         output => ula_src_mux_out -- connected to 'ula' 'in1'
     );
@@ -152,6 +163,14 @@ begin
         data_out => inst_reg
     );
 
+    ram_pm: ram port map(
+        clk => clk,
+        address => ram_address,
+        wr_en => ram_write,
+        data_in => ram_data_in,
+        data_out => ram_data_out
+    );
+
     -- Carry and Equal flags process
     process(clk,rst, flag_write)
     begin
@@ -168,14 +187,20 @@ begin
 
     opcode <= inst_reg(13 downto 10);
 
-    address_read_0 <= "000" when opcode = "0001" or opcode = "0010" else inst_reg(9 downto 7);
-    address_read_1 <= inst_reg(6 downto 4) when opcode = "0101" or opcode = "0010" or opcode = "0011" or opcode = "0100" else "000";
+    address_read_0 <= "000" when opcode = "0001" or opcode = "0010" or opcode = "1001" else inst_reg(9 downto 7);
+    address_read_1 <= inst_reg(6 downto 4) when opcode = "0101" or opcode = "0010" or opcode = "0011" or opcode = "0100" or opcode = "1001" or opcode = "1010" else "000";
 
     address_write <= inst_reg(9 downto 7);
+
+    ram_address <= reg_bank_out_0(6 downto 0) when opcode = "1010" else ula_out(6 downto 0);
+    ram_data_in <= reg_bank_out_1;
+
+    reg_bank_in <= ram_data_out when opcode = "1001" else ula_out;
 
     inst_constant <= "000000000" & inst_reg(6 downto 0) when inst_reg(6) = '0' else "111111111" & inst_reg(6 downto 0);
     jump_address <= inst_reg(6 downto 0);
     branch_range <= inst_reg(9 downto 3);
+
 
     pc_data_in <=
     -- branch if equal or greater than
