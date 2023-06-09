@@ -1,39 +1,39 @@
-        ldi r1, 1
-        ldi r2, 1
-        ldi r3, 32
-        
-loop:   st r2, r2
-        add r2, r1
-        cp r3, r2
-        brne loop
-        add r3,r1
-        ldi r2, 1
+        ldi r1, 1       0001 001 0000001
+        ldi r2, 1       0001 010 0000001
+        ldi r3, 32      0001 011 0100000
 
-next:   add r2, r1
-        cp r2, r3
-        breq print
-        ld r5,(r2)
-        cp r5, r0
-        breq next
-        mov r6, r2
-        add r6, r6
+loop:   st (r2), r2     1010 010 010 0000
+        add r2, r1      0011 010 001 0000
+        cp r3, r2       0101 011 010 0000
+        brne loop       0110 1111101 000
+        add r3,r1       0011 011 001 0000
+        ldi r2, 1       0001 010 0000001
 
-loop2:  cp r6, r3
-        brge next
-        st (r6), r0
-        add r6, r2
-        jmp loop2
+next:   add r2, r1      0011 010 001 0000
+        cp r2, r3       0101 010 011 0000
+        breq print      0111 0001101 000
+        ld r5,(r2)      1001 101 010 0000
+        cp r5, r0       0101 101 000 0000
+        breq next       0111 1111011 000
+        mov r6, r2      0010 110 010 0000
+        add r6, r6      0011 110 110 0000
 
-        ldi r2, 1
-        ldi r3, 32
+loop2:  cp r6, r3       0101 110 011 0000
+        brge next       1000 1110111 000
+        st (r6), r0     1010 011 000 0000
+        add r6, r2      0011 110 010 0000
+        jmp loop2       1111 0000010001
 
-print:  cp r3, r2
-        breq end
+        ldi r2, 1       0001 010 0000001
+        ldi r3, 32      0001 010 0100000
 
-        add r2, r1
-        ld r4, (r3)
-        cp r4, r0
-        breq print
-        mov r7, r4
-        jmp print
-end:    nop
+print:  cp r3, r2       0101 011 010 0000
+        breq end        1000 0000111 000
+
+        add r2, r1      0011 010 001 0000
+        ld r4, (r3)     1001 100 011 0000
+        cp r4, r0       0101 100 000 0000
+        breq print      0111 1111011 000
+        mov r7, r4      0010 111 100 0000
+        jmp print       1111 1111111001
+end:    nop             00000000000000
