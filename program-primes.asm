@@ -1,18 +1,17 @@
         ldi r1, 1
         ldi r2, 1
         ldi r3, 32
+        
 loop:   st r2, r2
         add r2, r1
         cp r3, r2
-        brne loop # -3
-        
+        brne loop
         add r3,r1
         ldi r2, 1
 
+next:   add r2, r1
         cp r2, r3
         breq print
-
-next:   add r2,r1
         ld r5,(r2)
         cp r5, r0
         breq next
@@ -22,7 +21,7 @@ next:   add r2,r1
 loop2:  cp r6, r3
         brge next
         st (r6), r0
-        add r6, r1
+        add r6, r2
         jmp loop2
 
         ldi r2, 1
