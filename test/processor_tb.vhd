@@ -31,7 +31,7 @@ begin
    
     sim_time_proc: process
         begin
-        wait for period_time * 1000;
+        wait for period_time * 4000;
         finished <= '1';
         wait;
     end process sim_time_proc;
